@@ -114,3 +114,15 @@ ggplot(top_paises_media, aes(x = reorder(location, media_daily_vaccinations), y 
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_brewer(palette = "Set2") +
   scale_y_continuous(labels = comma)
+
+# Gráfico de Vacinações nos Estados Unidos
+us_vaccinations <- vaccinations %>% 
+  filter(location == "United States")
+
+ggplot(us_vaccinations, aes(x = date, y = people_vaccinated)) +
+  geom_line(color = "blue") +
+  labs(title = "Total de Pessoas Vacinadas nos Estados Unidos",
+       x = "Data",
+       y = "Total de Pessoas Vacinadas") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::comma)
