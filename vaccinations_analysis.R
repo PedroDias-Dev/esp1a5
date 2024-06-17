@@ -114,3 +114,14 @@ ggplot(top_paises_media, aes(x = reorder(location, media_daily_vaccinations), y 
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_brewer(palette = "Set2") +
   scale_y_continuous(labels = comma)
+
+# Total de vacinados por data
+total_vacinados_por_data <- aggregate(total_vaccinations ~ date, vaccinations, sum)
+total_vacinados_por_data
+
+# Gera plot de linha do total de vacinados
+ggplot(total_vacinados_por_data, aes(x = date, y = total_vaccinations)) +
+  geom_line(color = "blue") +
+  labs(title = "Total de Pessoas Vacinadas por Data (Todos os Países)",
+       x = "Data", y = "Total Vacinados")
+

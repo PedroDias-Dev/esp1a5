@@ -16,3 +16,6 @@ vaccinations_filtered <- vaccinations %>%
 
 covid_hospitalizations_filtered <- covid_hospitalizations %>%
   filter(date < as.Date("2023-01-01"))
+
+older_covid_hospitalizations_filtered <- covid_hospitalizations %>%
+  filter(date < as.Date("2022-01-01"))
