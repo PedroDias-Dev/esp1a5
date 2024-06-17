@@ -55,15 +55,17 @@ ggplot(top_countries, aes(x = reorder(entity, value), y = value)) +
   coord_flip()
 
 
-# Admissões Semanais nos Estados Unidos
-usa_hospital_admissions <- covid_hospitalizations_filtered %>%
-  filter(iso_code == "USA", indicator == "Weekly new hospital admissions")
+# Ocupação Diária de UTIs nos Estados Unidos
+usa_icu_occupancy <- covid_hospitalizations %>%
+  filter(iso_code == "USA", indicator == "Daily ICU occupancy")
 
-usa_hospital_admissions$date <- as.Date(usa_hospital_admissions$date)
+# Converter coluna de data para formato Date
+usa_icu_occupancy$date <- as.Date(usa_icu_occupancy$date)
 
-ggplot(usa_hospital_admissions, aes(x = date, y = value)) +
-  geom_line(color = "blue") +
-  labs(title = "Número de Admissões Semanais nos Estados Unidos",
+# Criar gráfico de linha para visualizar a ocupação diária de UTIs
+ggplot(usa_icu_occupancy, aes(x = date, y = value)) +
+  geom_line(color = "red") +
+  labs(title = "Ocupação Diária de UTIs nos Estados Unidos",
        x = "Data",
        y = "Número de Admissões Semanais") +
   theme_minimal()
@@ -132,3 +134,4 @@ ggplot(covid_data, aes(x = date_numerico, y = value)) +
   geom_smooth(method = "lm", se = TRUE) +
   labs(title = "Relação entre Ocupação Diária de UTI e Data",
        x = "Data (dias)", y = "Ocupação de UTI")
+

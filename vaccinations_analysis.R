@@ -31,7 +31,6 @@ classes_sociais <- filtrar_classes_sociais(locations)
 world_vaccinations <- vaccinations_filtered %>%
   filter(location == "World")
 
-# Criando o gráfico de barras
 ggplot(world_vaccinations, aes(x = date, y = people_vaccinated)) +
   geom_bar(stat = "identity", fill = "skyblue") +
   labs(title = "Total de Pessoas Vacinadas no Mundo",
@@ -44,8 +43,8 @@ ggplot(world_vaccinations, aes(x = date, y = people_vaccinated)) +
 # Gráfico dos continentes com mais vacinações
 top_paises <- vaccinations %>%
   filter(location %in% continentes) %>%
-  arrange(location, desc(date)) %>%  # Arrange by location and date in descending order
-  distinct(location, .keep_all = TRUE) %>%  # Keep only the first row for each location
+  arrange(location, desc(date)) %>% 
+  distinct(location, .keep_all = TRUE) %>% 
   group_by(location) %>%
   summarise(people_vaccinated = sum(people_vaccinated, na.rm = TRUE)) %>%
   arrange(desc(people_vaccinated)) %>%
@@ -63,8 +62,8 @@ ggplot(top_paises, aes(x = reorder(location, people_vaccinated), y = people_vacc
 # Gráfico dos países com mais vacinações
 top_paises <- vaccinations %>%
   filter(location %in% paises) %>%
-  arrange(location, desc(date)) %>%  # Arrange by location and date in descending order
-  distinct(location, .keep_all = TRUE) %>%  # Keep only the first row for each location
+  arrange(location, desc(date)) %>%
+  distinct(location, .keep_all = TRUE) %>%
   group_by(location) %>%
   summarise(people_vaccinated = sum(people_vaccinated, na.rm = TRUE)) %>%
   arrange(desc(people_vaccinated)) %>%
@@ -82,8 +81,8 @@ ggplot(top_paises, aes(x = reorder(location, people_vaccinated), y = people_vacc
 # Gráfico das classes sociais com mais vacinações
 top_paises <- vaccinations %>%
   filter(location %in% classes_sociais) %>%
-  arrange(location, desc(date)) %>%  # Arrange by location and date in descending order
-  distinct(location, .keep_all = TRUE) %>%  # Keep only the first row for each location
+  arrange(location, desc(date)) %>%
+  distinct(location, .keep_all = TRUE) %>%
   group_by(location) %>%
   summarise(people_vaccinated = sum(people_vaccinated, na.rm = TRUE)) %>%
   arrange(desc(people_vaccinated)) %>%
@@ -125,3 +124,14 @@ ggplot(total_vacinados_por_data, aes(x = date, y = total_vaccinations)) +
   labs(title = "Total de Pessoas Vacinadas por Data (Todos os Países)",
        x = "Data", y = "Total Vacinados")
 
+# Gráfico de Vacinações nos Estados Unidos
+us_vaccinations <- vaccinations %>% 
+  filter(location == "United States")
+
+ggplot(us_vaccinations, aes(x = date, y = people_vaccinated)) +
+  geom_line(color = "blue") +
+  labs(title = "Total de Pessoas Vacinadas nos Estados Unidos",
+       x = "Data",
+       y = "Total de Pessoas Vacinadas") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::comma)
