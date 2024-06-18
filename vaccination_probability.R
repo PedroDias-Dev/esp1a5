@@ -34,3 +34,23 @@ pessoas_totalmente_vacinadas_2021 <- 3879378967
 pessoas_totalmente_vacinadas_2022 <- 5044053376
 pessoas_totalmente_vacinadas_2023 <- 5177907087
 pessoas_totalmente_vacinadas_2024 <- 5177942360
+
+# Gráfico da probabilidade das pessoas estarem vacinadas
+anos <- c(2020, 2021, 2022, 2023, 2024)
+prob_vac <- c(prob_vac_2020, prob_vac_2021, prob_vac_2022, prob_vac_2023, prob_vac_2024)
+
+dados_prob_vac <- data.frame(
+  ano = anos,
+  probabilidade_vacinacao = prob_vac
+)
+
+
+ggplot(dados_prob_vac, aes(x = ano, y = probabilidade_vacinacao)) +
+  geom_line(color = "blue") +  
+  geom_point(color = "blue", size = 3) + 
+  labs(
+    x = "Ano",
+    y = "Probabilidade de vacinação",
+    title = "Probabilidade de pessoas vacinadas em relação à população mundial",
+  ) +
+  theme_minimal()
